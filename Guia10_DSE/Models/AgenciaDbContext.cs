@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Guia10_DSE.Models
 {
-    public class AgenciaDbContext(DbContextOptions<AgenciaDbContext> options) : DbContext(options)
+    public class AgenciaDbContext : IdentityDbContext<Usuario>
+
     {
-            public DbSet<Marca> Marcas { get; set; }
+        public AgenciaDbContext(DbContextOptions<AgenciaDbContext> options)
+              : base(options) { }
+        public DbSet<Marca> Marcas { get; set; }
             public DbSet<Modelo> Modelos { get; set; }
             public DbSet<Vehiculo> Vehiculos { get; set; }
 

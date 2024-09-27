@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Guia10_DSE.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Guia10_DSE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ModelosController : ControllerBase
     {
         private readonly AgenciaDbContext _context;
@@ -24,7 +26,8 @@ namespace Guia10_DSE.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Modelo>>> GetModelos()
         {
-            return await _context.Modelos.ToListAsync();
+            return await _context.Modelos.Include(x => x.Marca).ToListAsync();
+
         }
 
         // GET: api/Modelos/5
